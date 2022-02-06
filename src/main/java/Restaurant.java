@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Restaurant {
     private String name;
@@ -51,6 +52,19 @@ public class Restaurant {
 
         menu.remove(itemToBeRemoved);
     }
+
+    public int getTotalOrderValue(final List<String> itemNames) {
+        int totalOrderValue = 0;
+        for (String itemName : itemNames) {
+            Item item = findItemByName(itemName);
+
+            if (Objects.nonNull(item)) {
+                totalOrderValue += item.getPrice();
+            }
+        }
+        return totalOrderValue;
+    }
+
     public void displayDetails(){
         System.out.println("Restaurant:"+ name + "\n"
                 +"Location:"+ location + "\n"
