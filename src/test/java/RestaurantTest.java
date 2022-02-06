@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.time.LocalTime;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -73,4 +74,19 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+    //<<<<<<<<<<<<<<<<<<<<<<<<<Display Order Total>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    @Test
+    public void total_order_price_is_non_zero_when_an_item_is_added() {
+        restaurant.addToMenu("Pavbhaji",25);
+        Assertions.assertEquals(25, restaurant.getTotalOrderValue(Collections.singletonList("Pavbhaji")));
+    }
+
+    @Test
+    public void total_order_price_is_zero_when_only_item_selected_is_removed() throws itemNotFoundException {
+        restaurant.addToMenu("Patties",10);
+        restaurant.removeFromMenu("Patties");
+        Assertions.assertEquals(0, restaurant.getTotalOrderValue(Collections.singletonList("Patties")));
+    }
 }
